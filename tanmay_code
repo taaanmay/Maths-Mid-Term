@@ -43,8 +43,12 @@ CLT_Upper = emp_mean + (2*sqrt(variance));
 fprintf("[CLT] : %.5f <= Y <= %.5f \n", CLT_Lower , CLT_Upper);
 
 
+%Q1 Part D (Pg 5 Slide 9a)
+sigma_square = variance * m                     %VARIANCE of Y_i  
+Number = sigma_square/(0.05 * (0.01^2))
+% Ans - 49984.54???
 
-
+fprintf("[Number of Shopping Baskets] : %.0f",Number)
 
 
 
