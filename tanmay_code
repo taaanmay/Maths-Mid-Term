@@ -1,25 +1,75 @@
 data = load('midterm2021.txt');
 [m,n] = size(data);
 
-%Q1 Part A
-Items_in_basket_Array = zeros(m,1); %Stores the sum of items present in the cart
-for i = 1:1:m
-Items_in_basket_Array(i,1) = sum(data(i,:));
-end
+% %Q1 Part A
+% Items_in_basket_Array = zeros(m,1); %Stores the sum of items present in the cart
+% for i = 1:1:m
+% Items_in_basket_Array(i,1) = sum(data(i,:));
+% end
+% 
+% vals = unique(Items_in_basket_Array(:,1));
+% 
+% pmf = [ ] ;
+% for val = vals' 
+% pmf=[pmf ; val , length(find(Items_in_basket_Array(:,1)==val)) /m] ;
+% end
+% figure(1), bar(pmf(:,1), pmf(:,2));
+% 
+% xlabel('Number of Items in basket'),
+% ylabel('Frequency'),
+% title('PMF of Number of Items in a shopping basket');
 
-vals = unique(Items_in_basket_Array(:,1));
-
-pmf = [ ] ;
-for val = vals' 
-pmf=[pmf ; val , length(find(Items_in_basket_Array(:,1)==val)) /m] ;
-end
-figure(1), bar(pmf(:,1), pmf(:,2));
-
-xlabel('Number of Items in basket'),
-ylabel('Frequency'),
-title('PMF of Number of Items in a shopping basket');
 
 %Q1 Part B
-emp_mean = sum(data(:,1)==1)/m;    %Check if the column is 1 and calculate the mean
-fprintf("[EMPERICAL MEAN] : P(Zi,1) = E[Zi,1] = %f \n",emp_mean)
+emp_mean = sum(data(:,1)==1)/m ;   %Check if the column is 1 and calculate the mean
+fprintf("[EMPERICAL MEAN] : P(Zi,1) = E[Zi,1] = %f \n",emp_mean);
+
+
+%Q1 Part C
+%Calculcate Variance
+variance = var(data(:,1)==1)/m;                  %Check if the column is 1 and calculate the variance of mean
+fprintf("[VARIANCE of Y_i] : %f \n",variance*m);
+fprintf("[VARIANCE of X_Bar] : %f \n",variance);
+
+%Calculate Chebyshev
+Lower_Chebyshev = emp_mean - sqrt(variance/0.05);
+Upper_Chebyshev = emp_mean + sqrt(variance/0.05);
+fprintf("[Chebyshev] : %.5f <= Y<= %.5f \n", Lower_Chebyshev, Upper_Chebyshev);
+
+
+%Calculate CLT
+CLT_Lower = emp_mean - (2*sqrt(variance));
+CLT_Upper = emp_mean + (2*sqrt(variance));
+fprintf("[CLT] : %.5f <= Y <= %.5f \n", CLT_Lower , CLT_Upper);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
