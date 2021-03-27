@@ -1,0 +1,22 @@
+%Q1 Part A
+data = load('midterm2021.txt');
+[m,n] = size(data);
+
+Items_in_basket_Array = zeros(m,1); %Stores the sum of items present in the cart
+for i = 1:1:m
+Items_in_basket_Array(i,1) = sum(data(i,:));
+end
+
+vals = unique(Items_in_basket_Array(:,1))
+
+pmf = [ ] ;
+for val = vals' 
+pmf=[pmf ; val , length(find(Items_in_basket_Array(:,1)==val)) /m] ;
+end
+figure(1), bar(pmf(:,1), pmf(:,2));
+
+xlabel('Number of Items in basket'),
+ylabel('Frequency'),
+title('PMF of Number of Items in a shopping basket')
+
+
