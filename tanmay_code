@@ -1,13 +1,13 @@
-%Q1 Part A
 data = load('midterm2021.txt');
 [m,n] = size(data);
 
+%Q1 Part A
 Items_in_basket_Array = zeros(m,1); %Stores the sum of items present in the cart
 for i = 1:1:m
 Items_in_basket_Array(i,1) = sum(data(i,:));
 end
 
-vals = unique(Items_in_basket_Array(:,1))
+vals = unique(Items_in_basket_Array(:,1));
 
 pmf = [ ] ;
 for val = vals' 
@@ -17,6 +17,9 @@ figure(1), bar(pmf(:,1), pmf(:,2));
 
 xlabel('Number of Items in basket'),
 ylabel('Frequency'),
-title('PMF of Number of Items in a shopping basket')
+title('PMF of Number of Items in a shopping basket');
 
+%Q1 Part B
+emp_mean = sum(data(:,1)==1)/m;    %Check if the column is 1 and calculate the mean
+fprintf("[EMPERICAL MEAN] : P(Zi,1) = E[Zi,1] = %f \n",emp_mean)
 
