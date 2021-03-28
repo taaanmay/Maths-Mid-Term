@@ -53,3 +53,45 @@ Number = 4*sigma_square/(0.01^2);
 % Ans - 10003???
 
 fprintf("[Number of Shopping Baskets] : %.0f",Number)
+
+
+
+
+%Q2 Part A
+possible_z = unique(data(:,2))
+% second_column = data(:,2);
+% first_cloumn = data(:,1);
+
+mean_table = zeros(1,length(possible_z));
+  %for i = 0:1:length(possible_z)
+  i = 0;  
+  for possible_z = possible_z'
+       mean_table(i+1) = mean(data(data(:,2) == i,1));
+       i = i+1;
+  end
+
+  mean_table
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
