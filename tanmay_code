@@ -1,23 +1,24 @@
+
 data = load('midterm2021.txt');
 [m,n] = size(data);
 
 % %Q1 Part A
-% Items_in_basket_Array = zeros(m,1); %Stores the sum of items present in the cart
-% for i = 1:1:m
-% Items_in_basket_Array(i,1) = sum(data(i,:));
-% end
-% 
-% vals = unique(Items_in_basket_Array(:,1));
-% 
-% pmf = [ ] ;
-% for val = vals' 
-% pmf=[pmf ; val , length(find(Items_in_basket_Array(:,1)==val)) /m] ;
-% end
-% figure(1), bar(pmf(:,1), pmf(:,2));
-% 
-% xlabel('Number of Items in basket'),
-% ylabel('Frequency'),
-% title('PMF of Number of Items in a shopping basket');
+ Items_in_basket_Array = zeros(m,1); %Stores the sum of items present in the cart
+ for i = 1:1:m
+ Items_in_basket_Array(i,1) = sum(data(i,:));
+ end
+ 
+ vals = unique(Items_in_basket_Array(:,1));
+ 
+ pmf = [ ] ;
+ for val = vals' 
+ pmf=[pmf ; val , length(find(Items_in_basket_Array(:,1)==val)) /m] ;
+ end
+ figure(1), bar(pmf(:,1), pmf(:,2));
+ 
+ xlabel('Number of Items in basket'),
+ ylabel('Frequency'),
+ title('PMF of Number of Items in a shopping basket');
 
 
 %Q1 Part B
@@ -43,37 +44,12 @@ CLT_Upper = emp_mean + (2*sqrt(variance));
 fprintf("[CLT] : %.5f <= Y <= %.5f \n", CLT_Lower , CLT_Upper);
 
 
-%Q1 Part D (Pg 5 Slide 9a)
+%Q1 Part D 
+%(Pg 5 Slide 9a)
+%FORMULA USED 0  2 * root(sigma_square/N)  =  0.01
 sigma_square = variance * m                     %VARIANCE of Y_i  
-Number = sigma_square/(0.05 * (0.01^2))
-% Ans - 49984.54???
+
+Number = 4*sigma_square/(0.01^2);
+% Ans - 10003???
 
 fprintf("[Number of Shopping Baskets] : %.0f",Number)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
