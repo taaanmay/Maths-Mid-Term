@@ -1,3 +1,8 @@
+%data = load('hamza.txt');
+%data = load('common_dataset.txt');
+%data = load('hailing_dataset.txt');
+
+
 data = load('midterm2021.txt');
 [m,n] = size(data);
 
@@ -97,7 +102,7 @@ a = unique(data(:,2))  ;
 %Number of elements in Second Row of the table
 %Variance in Third Row of the table
 %mean_table
-
+possible_z = length(unique(data(:,2)));    
 %Table to store Chebyshev Upper and Lower Bound
 Chebyshev_errhigh = zeros(1,possible_z)
 Chebyshev_errlow = zeros(1,possible_z)
