@@ -422,11 +422,11 @@ b = unique(data(:,3));
     CLT_errlow(1,k) = CLT_Lower;
   end
   
- 
+ mean_table
 
   
 possible_z;                         % X-Axis : Possible values of z
-data = mean_table(3,:);             % Y-Axis : Empirical/Sample Mean of E[Zi,1|Zi,3 = z]
+data = mean_table(2,:);             % Y-Axis : Empirical/Sample Mean of E[Zi,1|Zi,3 = z]
 
 %Plot the data
 bar(possible_z, data,'c')                     
