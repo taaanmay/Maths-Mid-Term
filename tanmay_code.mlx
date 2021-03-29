@@ -1,8 +1,3 @@
-%data = load('hamza.txt');
-%data = load('common_dataset.txt');
-%data = load('hailing_dataset.txt');
-
-
 data = load('midterm2021.txt');
 [m,n] = size(data);
 
@@ -55,10 +50,10 @@ fprintf("[CLT] : %.5f <= Y <= %.5f \n", CLT_Lower , CLT_Upper);
 %Q1 Part D 
 
 %FORMULA USED 0  2 * root(sigma_square/N)  =  0.01
-sigma_square = variance * m                     %VARIANCE of Y_i = (Variance of X bar) * N 
+sigma_square = variance * m                %VARIANCE of Y_i = (Variance of X bar) * N 
 
 Number = 4*sigma_square/(0.01^2);           %Number = Number of Baskets
-fprintf("[Number of Shopping Baskets] : %.0f",Number)
+fprintf("[Number of Shopping Baskets] : %.0f",Number);
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -74,15 +69,17 @@ possible_z = unique(second_column);     %Find unique values of Second Column
 %for all values of z
 mean_table = zeros(3,length(possible_z));
   
-  i = 0;  
-  for possible_z = possible_z'
-       mean_table(1,i+1) = mean(data(data(:,2) == i,1)); % Calculate Mean or Column 1 for z=0,1,2,3...
-       i = i+1; %Increment the counter
-  end
+for i=1:1:length(possible_z) 
+    mean_table(1,i) = possible_z(i);   
+    mean_table(2,i) = mean(data(data(:,2) == possible_z(i),1)); % Calculate Mean or Column 1 for z=0,1,2,3...
+       
+end
 
 mean_table
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% 
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %Q2 Part B
 %Variance of Column 1 when z = 0,1,2,3..
 
@@ -90,41 +87,42 @@ mean_table
 %Calculate no. of elements of column 2 and stored it
 %AND
 %Calculate variance of elements of column 1 for z=1,2,3.. and stored it
-j = 0;  
-a = unique(data(:,2))  ;  
-  for a = a'
-       mean_table(2, j+1) = length(data(data(:,2) == j,1));     % Find the count of elements for z=1,2,3...
-       mean_table(3, j+1) = var(data(data(:,2) == j,1));        % Find the variance of elements for z=1,2,3...
-       
-       j = j+1; %Increment the counter
-  end
 
 %Number of elements in Second Row of the table
 %Variance in Third Row of the table
-%mean_table
-possible_z = length(unique(data(:,2)));    
+  
+
+  for j = 1:1:length(possible_z)
+       mean_table(3, j) = length(data(data(:,2) == possible_z(j),1));     % Find the count of elements for z=1,2,3...
+       mean_table(4, j) = var(data(data(:,2) == possible_z(j),1));        % Find the variance of elements for z=1,2,3...
+             
+  end
+mean_table
+
+
+len_possible_z = length(unique(data(:,2)));    
 %Table to store Chebyshev Upper and Lower Bound
-Chebyshev_errhigh = zeros(1,possible_z)
-Chebyshev_errlow = zeros(1,possible_z)
+Chebyshev_errhigh = zeros(1,len_possible_z);
+Chebyshev_errlow = zeros(1,len_possible_z);
 
 %Table to store CLT Upper and Lower Bound
-CLT_errhigh = zeros(1,possible_z)
-CLT_errlow = zeros(1,possible_z)
+CLT_errhigh = zeros(1,len_possible_z);
+CLT_errlow = zeros(1,len_possible_z);
 
 %Calculate Chebyshev and CLT Confidence Intervals
 
-k = 0;  
+
 b = unique(data(:,2));    
-  for b = b'
-    fprintf("For z = %.0f",k); 
+  for k = 1:1:length(possible_z)
+    fprintf("For z = %.0f",possible_z(k)); 
      
-    emp_mean = mean_table(1,k+1);   % Empirical Mean for z=0 then 1,2,3...
-    variance = mean_table(3,k+1);   % Variance for z=0 then 1,2,3...
+    emp_mean = mean_table(2,k);   % Empirical Mean for z=0 then 1,2,3...
+    variance = mean_table(4,k);   % Variance for z=0 then 1,2,3...
     
-    N = mean_table(2,k+1);          % N : Count of elements for all z=0,1,2,...
+    N = mean_table(3,k);          % N : Count of elements for all z=0,1,2,...
     
     %Alternative Formula for Variance = p(1-p)
-    %variance = mean_table(1,k+1)*(1-mean_table(1,k+1));
+    %variance = mean_table(1,k)*(1-mean_table(1,k));
   
     
     %Calculate Chebyshev
@@ -132,8 +130,8 @@ b = unique(data(:,2));
     Upper_Chebyshev = emp_mean + sqrt(variance/(0.05*N));
     fprintf("[Chebyshev] : %.5f <= Y<= %.5f", Lower_Chebyshev, Upper_Chebyshev);
      %Store in table
-    Chebyshev_errhigh(1,k+1) = Upper_Chebyshev;
-    Chebyshev_errlow(1,k+1) = Lower_Chebyshev;
+    Chebyshev_errhigh(1,k) = Upper_Chebyshev;
+    Chebyshev_errlow(1,k) = Lower_Chebyshev;
 
     
     %Calculate CLT
@@ -141,35 +139,31 @@ b = unique(data(:,2));
     CLT_Upper = emp_mean + (2*sqrt(variance/N));
     fprintf("[CLT] : %.5f <= Y <= %.5f", CLT_Lower , CLT_Upper);
      %Store in table
-    CLT_errhigh(1,k+1) = CLT_Upper;
-    CLT_errlow(1,k+1) = CLT_Lower;
-
-    
-    k = k+1;    %Increment the index of for loop 
+    CLT_errhigh(1,k) = CLT_Upper;
+    CLT_errlow(1,k) = CLT_Lower;
   end
   
    
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  
-%Q2 Part C
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  
+% %Q2 Part C
 
-z_values = unique(second_column); 
-x = z_values;                       % X-Axis : Possible values of z
-data = mean_table(1,:);             % Y-Axis : Empirical/Sample Mean of E[Zi,1|Zi,2 = z]
+possible_z;                         % X-Axis : Possible values of z
+data = mean_table(2,:);             % Y-Axis : Empirical/Sample Mean of E[Zi,1|Zi,2 = z]
 
 %Plot the data
-bar(x,data,'c')                     
+bar(possible_z, data,'c')                     
 
 
 %Add Confidence Intervals
 hold on
 
 %Add CLT Upper and Lower Bound Intervals
-CLT_er = errorbar(x,data,CLT_errlow,CLT_errhigh);    
+CLT_er = errorbar(possible_z,data,CLT_errlow,CLT_errhigh);    
 CLT_er.Color = [1 0 0];                            
 CLT_er.LineStyle = '--';  
 
 %Add Chebyshev Upper and Lower Bound Intervals
-Chebyshev_er = errorbar(x,data,Chebyshev_errlow,Chebyshev_errhigh);    
+Chebyshev_er = errorbar(possible_z,data,Chebyshev_errlow,Chebyshev_errhigh);    
 Chebyshev_er.Color = [0 1 0];                            
 Chebyshev_er.LineStyle = '-';  
 
