@@ -67,7 +67,7 @@ possible_z = unique(second_column);     %Find unique values of Second Column
 
 %Create a Mean Table which will store the Sample/Empirical Mean of Column 1
 %for all values of z
-mean_table = zeros(3,length(possible_z));
+mean_table = zeros(2,length(possible_z));
   
 for i=1:1:length(possible_z) 
     mean_table(1,i) = possible_z(i);   
@@ -75,7 +75,7 @@ for i=1:1:length(possible_z)
        
 end
 
-mean_table
+disp(mean_table);
 
 
 % 
@@ -97,7 +97,7 @@ mean_table
        mean_table(4, j) = var(data(data(:,2) == possible_z(j),1));        % Find the variance of elements for z=1,2,3...
              
   end
-mean_table
+disp(mean_table);
 
 
 len_possible_z = length(unique(data(:,2)));    
@@ -114,7 +114,7 @@ CLT_errlow = zeros(1,len_possible_z);
 
 b = unique(data(:,2));    
   for k = 1:1:length(possible_z)
-    fprintf("For z = %.0f",possible_z(k)); 
+    fprintf("---- For z = %.0f -------",possible_z(k)); 
      
     emp_mean = mean_table(2,k);   % Empirical Mean for z=0 then 1,2,3...
     variance = mean_table(4,k);   % Variance for z=0 then 1,2,3...
@@ -158,12 +158,12 @@ bar(possible_z, data,'c')
 hold on
 
 %Add CLT Upper and Lower Bound Intervals
-CLT_er = errorbar(possible_z,data,CLT_errlow,CLT_errhigh);    
+CLT_er = errorbar(possible_z,data,abs(data-CLT_errlow),abs(data-CLT_errhigh));    
 CLT_er.Color = [1 0 0];                            
 CLT_er.LineStyle = '--';  
 
 %Add Chebyshev Upper and Lower Bound Intervals
-Chebyshev_er = errorbar(possible_z,data,Chebyshev_errlow,Chebyshev_errhigh);    
+Chebyshev_er = errorbar(possible_z,data,abs(data-Chebyshev_errlow),abs(data-Chebyshev_errhigh));    
 Chebyshev_er.Color = [0 1 0];                            
 Chebyshev_er.LineStyle = '-';  
 
@@ -177,8 +177,8 @@ hold off
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  
 %Q2 Part D
+%WRITE SOME ENGLISH
 
- 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  
