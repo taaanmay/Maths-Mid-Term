@@ -113,7 +113,7 @@ CLT_errlow = zeros(1,len_possible_z);
 %Calculate Chebyshev and CLT Confidence Intervals
 
 
-b = unique(data(:,2));    
+
   for k = 1:1:length(possible_z)
     fprintf("---- For z = %.0f -------",possible_z(k)); 
      
@@ -178,11 +178,9 @@ title('Graph of E[Zi,1|Zi,2 = z] vs Z');
 legend({'E[Zi,1|Zi,2=z]','CLT','CHEBYSHEV'});
 hold off
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  
-%Q2 Part D
-%WRITE SOME ENGLISH
 
 
+format longg
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  
 %Q3 Part A
@@ -196,7 +194,7 @@ data_100 = data(1:100,:);    %Load first 100 rows
 %Calculate Empirical Mean
 N = length(data_100);
 emp_mean = sum(data_100(:,1)==1)/N ;   %Check if the column is 1 and calculate the mean
-fprintf("[EMPIRICAL MEAN of 100] : E[Zi,1] = %f \n",emp_mean);
+fprintf("[EMPIRICAL MEAN of 100 Rows] : E[Zi,1] = %f \n",emp_mean);
 
 %Calculcate Variance
 variance = var(data_100(:,1)==1)/N;                  %Check if the column is 1 and calculate the variance of mean
@@ -238,7 +236,7 @@ for j = 1:1:length(possible_z)
        mean_table(4, j) = var(data_100(data_100(:,2) == possible_z(j),1));        % Find the variance of elements for z=1,2,3...
              
 end
-%mean_table  
+mean_table  
 %disp(mean_table);
 
 
@@ -254,7 +252,7 @@ CLT_errlow = zeros(1,len_possible_z);
 %Calculate Chebyshev and CLT Confidence Intervals
 
 
-b = unique(data_100(:,2));    
+
   for k = 1:1:length(possible_z)
     fprintf("---- For z = %.0f -------",possible_z(k)); 
      
@@ -264,7 +262,7 @@ b = unique(data_100(:,2));
     N = mean_table(3,k);          % N : Count of elements for all z=0,1,2,...
     
     %Alternative Formula for Variance = p(1-p)
-    %variance = mean_table(1,k)*(1-mean_table(1,k));
+    %variance = mean_table(2,k)*(1-mean_table(2,k));
   
     
     %Calculate Chebyshev
@@ -312,7 +310,7 @@ Chebyshev_er.LineStyle = '-';
 %legend({'Red = CLT','Green = Chebyshev'},'Location','northeast')
 xlabel('Z -->'),
 ylabel('E[Zi,1 |Zi,2 = z] '),
-title('Graph of E[Zi,1|Zi,2 = z] vs Z');
+title('Graph of E[Zi,1|Zi,2 = z] vs Z for first 100 rows');
 
 
 legend({'E[Zi,1|Zi,2=z]','CLT','CHEBYSHEV'});
@@ -333,7 +331,7 @@ data = load('midterm2021.txt');
 %Calculate Empirical Mean
 N = length(data);
 emp_mean = sum(data(:,1)==1)/N ;   %Check if the column is 1 and calculate the mean
-fprintf("[EMPIRICAL MEAN of 100] : E[Zi,1] = %f \n",emp_mean);
+fprintf("[EMPIRICAL MEAN] : E[Zi,1] = %f \n",emp_mean);
 
 %Calculcate Variance
 variance = var(data(:,1)==1)/N;                  %Check if the column is 1 and calculate the variance of mean
@@ -341,13 +339,13 @@ variance = var(data(:,1)==1)/N;                  %Check if the column is 1 and c
 %Calculate Chebyshev
 Lower_Chebyshev = emp_mean - sqrt(variance/0.05);
 Upper_Chebyshev = emp_mean + sqrt(variance/0.05);
-fprintf("[Chebyshev for 100] : %.5f <= Y<= %.5f \n", Lower_Chebyshev, Upper_Chebyshev);
+fprintf("[Chebyshev] : %.5f <= Y<= %.5f \n", Lower_Chebyshev, Upper_Chebyshev);
 
 
 %Calculate CLT
 CLT_Lower = emp_mean - (2*sqrt(variance));
 CLT_Upper = emp_mean + (2*sqrt(variance));
-fprintf("[CLT for 100] : %.5f <= Y <= %.5f \n", CLT_Lower , CLT_Upper);
+fprintf("[CLT] : %.5f <= Y <= %.5f \n", CLT_Lower , CLT_Upper);
 
 
 
@@ -454,31 +452,3 @@ title('Graph of E[Zi,1|Zi,3 = z] vs Z');
 
 legend({'E[Zi,1|Zi,3=z]','CLT','CHEBYSHEV'});
 hold off
-  
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  
-  
